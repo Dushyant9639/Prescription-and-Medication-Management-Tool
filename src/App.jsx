@@ -88,16 +88,7 @@ function App() {
     */
   }, [isFirstLoad]);
   
-  // Initialize Gemini API key if not already set (only on first mount)
-  useEffect(() => {
-    // Set default API key ONLY if empty on first load
-    if (!aiSettings.geminiApiKey || aiSettings.geminiApiKey.trim() === '') {
-      updateAISettings({ 
-        geminiApiKey: 'AIzaSyDr0Slm-FRDKcWR7QbHxWengNTpP-x3CyM'
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Run only once on mount
+  // No automatic API key initialization - users must add their own in Profile settings
   
   // Initialize AI service whenever API key changes
   useEffect(() => {
