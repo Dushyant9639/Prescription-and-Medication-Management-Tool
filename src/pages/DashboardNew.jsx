@@ -124,7 +124,7 @@ const DashboardNew = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Upcoming Refills</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">2</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{allMedications.filter(m => m.refillStatus === 'pending').length}</p>
             </div>
             <Calendar className="w-8 h-8 text-blue-600" />
           </div>
