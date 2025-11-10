@@ -68,29 +68,14 @@ function App() {
   
   // Initialize with mock data ONLY on first app load (not when user deletes all medications)
   useEffect(() => {
-    // Skip mock data loading - users should add their own medications
-    // Comment out the section below if you want to enable mock data for development
+    
     if (isFirstLoad) {
       setIsFirstLoad(false);
     }
     
-    /* Uncomment below to enable mock data on first load:
-    if (isFirstLoad && medications.length === 0) {
-      console.log('📋 First app load - loading mock data');
-      mockMedications.forEach((med) => useStore.getState().addMedication(med));
-      setUserProfile(mockUserProfile);
-      setIsFirstLoad(false);
-    } else if (!isFirstLoad && medications.length === 0) {
-      console.log('🗑️ All medications deleted - not reloading mock data');
-    } else if (medications.length > 0) {
-      setIsFirstLoad(false);
-    }
-    */
+  
   }, [isFirstLoad]);
-  
-  // No automatic API key initialization - users must add their own in Profile settings
-  
-  // Initialize AI service whenever API key changes
+ 
   useEffect(() => {
     if (aiSettings.geminiApiKey) {
       aiAdherenceService.setApiKey(aiSettings.geminiApiKey);
@@ -109,7 +94,6 @@ function App() {
   // Auto-generate recurring reminders
   useEffect(() => {
     if (notificationsEnabled && notificationSettings.autoGenerate && medications.length > 0) {
-      // Check if reminders need to be regenerated (daily)
       if (recurringReminderService.shouldRegenerateReminders()) {
         console.log('🔄 Auto-generating recurring reminders...');
         
