@@ -21,10 +21,8 @@ const AIAssistant = () => {
   ];
 
   const getAIResponse = async (userMessage) => {
-    // Simulate AI response - In production, integrate with OpenAI, Anthropic, or medical API
     setIsTyping(true);
     
-    // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     let response = '';
