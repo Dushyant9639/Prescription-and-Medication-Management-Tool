@@ -52,12 +52,9 @@ class NotificationScheduler {
     reminders.forEach(reminder => {
       if (reminder.status !== 'pending') return;
       
-      // Parse scheduled time - handle both ISO format and local time format
       let scheduledTime = new Date(reminder.scheduledTime);
       
-      // If the time string doesn't have 'Z' or '+', it's local time
       if (reminder.scheduledTime && !reminder.scheduledTime.includes('Z') && !reminder.scheduledTime.includes('+') && reminder.scheduledTime.includes('T')) {
-        // Parse as local time by extracting components
         const parts = reminder.scheduledTime.split('T');
         const [year, month, day] = parts[0].split('-').map(Number);
         const [hours, minutes, seconds] = (parts[1] || '00:00:00').split(':').map(Number);
@@ -67,22 +64,19 @@ class NotificationScheduler {
       const timeDiff = scheduledTime.getTime() - now.getTime();
       
       // Debug logging
-      console.log(`⏰ Checking reminder: ${reminder.medicationName} scheduled at ${scheduledTime.toLocaleTimeString()} (diff: ${timeDiff}ms = ${Math.round(timeDiff / 60000)} min)`);
+      // console.log(`⏰ Checking reminder: ${reminder.medicationName} scheduled at ${scheduledTime.toLocaleTimeString()} (diff: ${timeDiff}ms = ${Math.round(timeDiff / 60000)} min)`);
       
       // Find medication for this reminder
       const medication = medications.find(m => m.id === reminder.medicationId);
       
       // Skip if medication not found
       if (!medication) return;
-      
-      // If reminder is due (within 5 seconds in future or up to 5 minutes in past)
-      // This allows for reminders that are currently happening or recently passed
+    
       if (timeDiff <= 5000 && timeDiff > -300000) {
         console.log(`🔔 Triggering notification for ${medication.name} (time diff: ${timeDiff}ms)`);
         this.triggerNotification(reminder, medication, onReminderDue);
       }
       
-      // Schedule future notifications (more than 5 seconds away, within next 24 hours)
       if (timeDiff > 5000 && timeDiff < 86400000) {
         this.scheduleNotification(reminder, medication, timeDiff, onReminderDue);
       }
@@ -116,10 +110,7 @@ class NotificationScheduler {
       notificationOptions.vibrate = [200, 100, 200, 100, 200];
     }
 
-    // Note: Actions are only supported in Service Workers
-    // Users can click the notification to open the modal with full actions
-    
-    // Send browser notification
+  
     const notification = sendNotification(
       `💊 Time to take ${medication.name}`,
       notificationOptions
