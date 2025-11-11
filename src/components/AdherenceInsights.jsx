@@ -11,12 +11,11 @@ const AdherenceInsights = () => {
   const [loading, setLoading] = useState(false);
   const [dismissedInsights, setDismissedInsights] = useState(new Set());
 
-  // Create a dependency string that changes when reminder data actually changes
   const reminderDataHash = reminders.map(r => `${r.id}-${r.status}-${r.scheduledTime}`).join('|');
 
   useEffect(() => {
     generateInsights();
-  }, [reminderDataHash, medications.length]); // Regenerate when reminder statuses change OR medication count changes
+  }, [reminderDataHash, medications.length]); 
 
   const generateInsights = async () => {
     if (reminders.length === 0) {
@@ -44,7 +43,6 @@ const AdherenceInsights = () => {
     generateInsights();
   };
 
-  // Don't show if AI insights are disabled
   if (!aiSettings?.enabled || !aiSettings?.showInsights) {
     return null;
   }
