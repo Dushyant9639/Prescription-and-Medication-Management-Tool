@@ -7,14 +7,6 @@ class RecurringReminderService {
   constructor() {
     this.lastGenerated = null;
   }
-
-  /**
-   * Generate recurring reminders for all medications
-   * @param {Array} medications - List of active medications
-   * @param {Array} existingReminders - Current reminders to avoid duplicates
-   * @param {number} daysAhead - How many days ahead to generate (default 7)
-   * @returns {Array} New reminders to add
-   */
   generateRecurringReminders(medications, existingReminders = [], daysAhead = 7) {
     const newReminders = [];
     const now = new Date();
@@ -29,12 +21,9 @@ class RecurringReminderService {
       // Skip inactive medications
       if (medication.status !== 'active') return;
       
-      // ALWAYS use current time as start date for reminder generation
-      // This ensures reminders are generated from NOW, not from medication creation time
-      // If there's a specific start date in the future, it will be handled by the schedule settings
+     
       let startDate = now;
 
-      // Generate reminders based on frequency (normalize to lowercase)
       const freq = (medication.frequency || 'daily').toLowerCase();
       
       if (freq.includes('daily') && !freq.includes('twice') && !freq.includes('three')) {
