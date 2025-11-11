@@ -45,7 +45,6 @@ function App() {
     setupOnlineOfflineListeners();
   }, []);
   
-  // Handle service worker messages for reminder actions
   useEffect(() => {
     const handleSWReminderTaken = (event) => {
       const { reminderId } = event.detail;
