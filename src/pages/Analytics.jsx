@@ -42,11 +42,7 @@ const Analytics = () => {
       
       const dayReminders = reminders.filter(r => {
         const reminderDate = new Date(r.scheduledTime);
-        // Only include reminders that:
-        // 1. Are on this day
-        // 2. Are past due
-        // 3. Have status 'taken' or 'missed' (not pending)
-        // 4. Belong to valid medications
+       
         return reminderDate >= date && 
                reminderDate < nextDay && 
                (r.status === 'taken' || r.status === 'missed') &&
@@ -82,10 +78,7 @@ const Analytics = () => {
       
       const dayReminders = reminders.filter(r => {
         const reminderDate = new Date(r.scheduledTime);
-        // Only include reminders that:
-        // 1. Are on this day
-        // 2. Have status 'taken' or 'missed' (not pending)
-        // 3. Belong to valid medications
+       
         return reminderDate >= date && 
                reminderDate < nextDay &&
                (r.status === 'taken' || r.status === 'missed') &&
@@ -120,10 +113,7 @@ const Analytics = () => {
       
       const weekReminders = reminders.filter(r => {
         const reminderDate = new Date(r.scheduledTime);
-        // Only include reminders that:
-        // 1. Are in this week
-        // 2. Have status 'taken' or 'missed' (not pending)
-        // 3. Belong to valid medications
+       
         return reminderDate >= weekStart && 
                reminderDate < weekEnd &&
                (r.status === 'taken' || r.status === 'missed') &&
