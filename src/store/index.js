@@ -231,10 +231,7 @@ export const useStore = create(
         // Get valid medication IDs (only active medications)
         const validMedicationIds = new Set(medications.map((m) => m.id));
         
-        // Only count reminders that:
-        // 1. Are in the past (due reminders)
-        // 2. Belong to medications that still exist
-        // 3. Are either taken or missed (not pending)
+
         const dueReminders = reminders.filter((r) => 
           new Date(r.scheduledTime) <= now && 
           validMedicationIds.has(r.medicationId) &&
@@ -399,8 +396,8 @@ export const useStore = create(
         sound: true,
         vibration: true,
         requireInteraction: true,
-        autoGenerate: true, // Auto-generate recurring reminders
-        daysAhead: 7, // Generate reminders for next 7 days
+        autoGenerate: true, 
+        daysAhead: 7, 
         quietHoursEnabled: false,
         quietHoursStart: '22:00',
         quietHoursEnd: '07:00',
